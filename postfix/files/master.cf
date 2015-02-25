@@ -122,5 +122,7 @@ mailman   unix  -       n       n       -       -       pipe
   flags=FR user=list argv=/usr/lib/mailman/bin/postfix-to-mailman.py
   ${nexthop} ${user}
 
+{%- if salt['pillar.get']('postfix:policyd:enable', False) %}
 policyd-spf  unix  -       n       n       -       0       spawn
   user=nobody argv=/usr/bin/policyd-spf /etc/postfix-policyd-spf-python/policyd-spf.conf
+{% endif -%}
