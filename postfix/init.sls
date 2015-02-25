@@ -7,8 +7,10 @@ postfix:
     - watch:
       - pkg: postfix
 
+{% if salt['pillar.get']('postfix:policyd:enable', False) %}
 postfix-policyd-spf-python:
   pkg.installed: []
+{% endif %}
 
 # manage /etc/aliases if data found in pillar
 {% if 'aliases' in pillar.get('postfix', '') %}
